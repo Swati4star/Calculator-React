@@ -8,10 +8,11 @@ import {
   Text,
   AppRegistry
 } from 'react-native';
+
 import Style from './Style';
 import InputButton from './InputButton';
 
-// Input Buttons.
+// Input Buttons
 const inputButtons = [
     [1, 2, 3, '/'],
     [4, 5, 6, '*'],
@@ -22,16 +23,31 @@ const inputButtons = [
 //Calculator component
 class Calculator extends Component {
 
-  render() {
-    return (
-        <View style={{flex: 1}}>
-            <View style={Style.displayContainer}></View>
-            <View style={Style.inputContainer}>
-            	{this._renderInputButtons()}
+	constructor(props) {
+        super(props);
+
+        // states of calculator
+        this.state = {
+            previousInputValue: 0,
+            inputValue: 0,
+            selectedSymbol: null
+        }
+    }
+
+
+	render() {
+        return (
+        	// Display and input flex
+            <View style={Style.rootContainer}>
+                <View style={Style.displayContainer}>
+                    <Text style={Style.displayText}>{this.state.inputValue}</Text>
+                </View>
+                <View style={Style.inputContainer}>
+                    {this._renderInputButtons()}
+                </View>
             </View>
-        </View>
-      )
-  }
+        )
+    }
 
    /**
      * For each row in `inputButtons`, create a row View and add create an InputButton for each input in the row.
@@ -47,15 +63,67 @@ class Calculator extends Component {
                 let input = row[i];
 
                 inputRow.push(
-                    <InputButton value={input} key={r + "-" + i} />
-                );
+		            <InputButton
+		                value={input}
+		                highlight={this.state.selectedSymbol === input}
+		                onPress={this._onInputButtonPressed.bind(this, input)}
+		                key={r + "-" + i}/>
+		        );
             }
 
-            views.push(<View style={Style.inputRow} key={"row-" + r}>{inputRow}</View>)
+            views.push(<View style={Style.inputRow} key={"row-" + r}> {inputRow} </View>)
         }
 
         return views;
     }
+
+    _onInputButtonPressed(input) {
+        switch (typeof input) {
+            case 'number':
+                return this._handleNumberInput(input)
+            case 'string':
+                return this._handleStringInput(input)
+        }
+    }
+
+    _handleNumberInput(num) {
+        let inputValue = (this.state.inputValue * 10) + num;
+
+        this.setState({
+            inputValue: inputValue
+        })
+    }
+
+   _handleStringInput(str) {
+        switch (str) {
+            case '/':
+            case '*':
+            case '+':
+            case '-':
+                this.setState({
+                    selectedSymbol: str,
+                    previousInputValue: this.state.inputValue,
+                    inputValue: 0
+                });
+                break;
+            case '=':
+                let symbol = this.state.selectedSymbol,
+                    inputValue = this.state.inputValue,
+                    previousInputValue = this.state.previousInputValue;
+
+                if (!symbol) {
+                    return;
+                }
+
+                this.setState({
+                    previousInputValue: 0,
+                    inputValue: eval(previousInputValue + symbol + inputValue),
+                    selectedSymbol: null
+                });
+                break;
+        }
+    }
+    
 }
 
 AppRegistry.registerComponent('Calculator', () => Calculator);
