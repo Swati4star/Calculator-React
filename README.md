@@ -11,13 +11,13 @@ $ npm install
 ```
  - Keep the server running
  
- ```
- $ npm start
- ```
+```
+$ npm start
+```
  - To run the Android app, start an emulator, and run
  
 ```
- $ react-native run-android
+$ react-native run-android
 ```
 
 
