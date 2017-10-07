@@ -55,8 +55,6 @@ class Calculator extends Component {
      * For each row in `inputButtons`, create a row View and add create an InputButton for each input in the row.
      */
     _renderInputButtons() {
-        let views = [];
-
         return inputButtons.map((inputRow, r) => (
             <View style={Style.inputRow} key={"row-" + r}>
                 {
@@ -67,10 +65,10 @@ class Calculator extends Component {
 		                        onPress={this._onInputButtonPressed(input)}
 		                        key={r + "-" + i}
                         />
-                    ))
+                    ));
                 }
             </View>
-        ))
+        ));
     }
 
     _onInputButtonPressed(input) {
