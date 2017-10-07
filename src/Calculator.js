@@ -32,6 +32,8 @@ class Calculator extends Component {
             inputValue: 0,
             selectedSymbol: null
         }
+
+        this._onInputButtonPressed = this._onInputButtonPressed.bind(this);
     }
 
 
@@ -53,28 +55,20 @@ class Calculator extends Component {
      * For each row in `inputButtons`, create a row View and add create an InputButton for each input in the row.
      */
     _renderInputButtons() {
-        let views = [];
-
-        for (var r = 0; r < inputButtons.length; r ++) {
-            let row = inputButtons[r];
-
-            let inputRow = [];
-            for (var i = 0; i < row.length; i ++) {
-                let input = row[i];
-
-                inputRow.push(
-		            <InputButton
-		                value={input}
-		                highlight={this.state.selectedSymbol === input}
-		                onPress={this._onInputButtonPressed.bind(this, input)}
-		                key={r + "-" + i}/>
-		        );
-            }
-
-            views.push(<View style={Style.inputRow} key={"row-" + r}> {inputRow} </View>)
-        }
-
-        return views;
+        return inputButtons.map((inputRow, r) => (
+            <View style={Style.inputRow} key={"row-" + r}>
+                {
+                    inputRow.map((input, i) => (
+                        <InputButton
+		                        value={input}
+		                        highlight={this.state.selectedSymbol === input}
+		                        onPress={this._onInputButtonPressed(input)}
+		                        key={r + "-" + i}
+                        />
+                    ));
+                }
+            </View>
+        ));
     }
 
     _onInputButtonPressed(input) {
@@ -123,7 +117,7 @@ class Calculator extends Component {
                 break;
         }
     }
-    
+
 }
 
 AppRegistry.registerComponent('Calculator', () => Calculator);
