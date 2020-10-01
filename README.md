@@ -1,8 +1,8 @@
 # Calculator
-A Calculator app using [React Native](https://facebook.github.io/react-native/). React Native is a great tool that lets us build mobile apps using only JavaScript.It uses the same design as React, letting us compose a rich mobile UI from declarative components.
+A Calculator app using [React Native](https://facebook.github.io/react-native/). React Native is an JavaScript framework for writing real, natively rendering mobile applications for IOS and Android. It uses the similar design like as React, letting us compose a rich mobile UI from declarative components.
 
 ## Running the app
- - Follow the [Getting Started guide](https://facebook.github.io/react-native/docs/getting-started.html) to install React Native and its dependencies.
+ - Follows the [Getting Started guide](https://facebook.github.io/react-native/docs/getting-started.html) to install React Native and its dependencies.
  - Clone this repository
  - Installing dependencies
 ```sh
@@ -25,7 +25,7 @@ $ react-native run-android
 <img src="https://github.com/Swati4star/Calculator-React/blob/master/screenshot/s1.png" width="200px">
 
 ## Credits
-The app was made using this [tutorial](https://kylewbanks.com/blog/react-native-tutorial-part-1-hello-react).
+This App was made using this [tutorial](https://kylewbanks.com/blog/react-native-tutorial-part-1-hello-react).
 
 ## Contributing
 #### Code & Issues
